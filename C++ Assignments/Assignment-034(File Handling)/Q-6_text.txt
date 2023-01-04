@@ -1,1 +1,3 @@
-hello my lovish duggal.
+Learning C++ & DSA.
+LearnInPublic.
+Open Source Enthusiastic.

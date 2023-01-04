@@ -1,6 +1,5 @@
-// Write a C++ program that counts the total number of characters, words and lines in
+// Write a C++ program that counts the total number words and lines in
 // the file.
-//! This solution is not ready I will update soon.
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -15,31 +14,17 @@ int main()
     {
         cout << "File does not exit !!" << endl;
     }
-    char ch;
-    ch = fin.get();
+    char words[20], line[100];
     while (!fin.eof())
     {
-        ch = fin.get();
-        if (ch == ' ')
-        {
-            wordCount++;
-        }
-        else if ((ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z') && ((char)fin.get() == '.'))
-        {
-            con = true;
-            fin.seekg(-1, ios::cur);
-            cout << "hllo-1" << endl;
-            wordCount++;
-            lineCount++;
-        }
-        else
-        {
-            fin.seekg(-1, ios::cur);
-        }
-        if (con)
-        {
-            fin.seekg(-2, ios::cur);
-        }
+        fin.getline(line, 100);
+        lineCount++;
+    }
+    fin.seekg(0);
+    while (!fin.eof())
+    {
+        fin >> words;
+        wordCount++;
     }
     cout << "The total words and lines in file are : " << wordCount << "," << lineCount << endl;
     fin.close();

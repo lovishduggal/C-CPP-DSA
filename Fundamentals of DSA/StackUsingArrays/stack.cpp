@@ -52,13 +52,38 @@ void STACK::push(int data)
         append(data);
 }
 STACK::STACK(int capacity) : Array(capacity){};
+void pushInStack(STACK &S, STACK &minValStack, int data)
+{
+    S.push(data);
+    if (minValStack.isEmpty())
+    {
+        minValStack.push(data);
+    }
+    else
+    {
+        if (data > minValStack.peek())
+            minValStack.push(minValStack.peek());
+        else
+            minValStack.push(data);
+    }
+}
+void popFromStack(STACK &S, STACK &minValStack)
+{
+    S.pop();
+    minValStack.pop();
+}
 int main()
 {
-    STACK obj(3);
-    obj.push(1);
-    obj.push(2);
-    obj.push(3);
-    cout << obj.peek();
-    obj.reverseStack();
-    cout << obj.peek();
+    STACK S(6);
+    STACK minValStack(6);
+    pushInStack(S, minValStack, 5);
+    pushInStack(S, minValStack, 4);
+    pushInStack(S, minValStack, 6);
+    pushInStack(S, minValStack, 2);
+    pushInStack(S, minValStack, 10);
+    popFromStack(S, minValStack);
+    popFromStack(S, minValStack);
+    popFromStack(S, minValStack);
+    popFromStack(S, minValStack);
+    cout << minValStack.peek();
 }

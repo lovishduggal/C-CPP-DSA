@@ -10,10 +10,24 @@ class SLL
 private:
     node *start;
 
+protected:
+    void setStart(node *add)
+    {
+        start = add;
+    }
+    node *getStart()
+    {
+        return start;
+    }
+
 public:
     SLL()
     {
         start = NULL;
+    }
+    node *getStartAdd()
+    {
+        return start;
     }
     inline void insertAtStart(int);
     void insertAtEnd(int);

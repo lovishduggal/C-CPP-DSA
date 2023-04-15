@@ -8,20 +8,13 @@ public:
     void pop();
     virtual bool isFull();
     virtual bool isEmpty();
-    void reverseStack();
+    int getCap();
     ~STACK();
 };
 STACK::~STACK(){};
-void STACK::reverseStack()
+int STACK::getCap()
 {
-    if (!isEmpty())
-    {
-        int *t = new int[getCap()];
-        for (int i = count() - 1, j = 0; i >= 0; i--, j++)
-            t[j] = get(i);
-        setPtr(t);
-        t = NULL;
-    }
+    return Array::getCap();
 }
 bool STACK::isEmpty()
 {
@@ -72,18 +65,25 @@ void popFromStack(STACK &S, STACK &minValStack)
     S.pop();
     minValStack.pop();
 }
+void reverseStack(STACK &origStack)
+{
+    STACK temp(origStack.getCap());
+    while (!origStack.isEmpty())
+    {
+        temp.push(origStack.peek());
+        origStack.pop();
+    };
+    origStack = temp; //* bug : leakage of memory
+}
 int main()
 {
-    STACK S(6);
-    STACK minValStack(6);
-    pushInStack(S, minValStack, 5);
-    pushInStack(S, minValStack, 4);
-    pushInStack(S, minValStack, 6);
-    pushInStack(S, minValStack, 2);
-    pushInStack(S, minValStack, 10);
-    popFromStack(S, minValStack);
-    popFromStack(S, minValStack);
-    popFromStack(S, minValStack);
-    popFromStack(S, minValStack);
-    cout << minValStack.peek();
+    STACK obj(5);
+    obj.push(10);
+    obj.push(20);
+    obj.push(30);
+    obj.push(30);
+    STACK obj1 = obj;
+    cout << obj.peek() << " : " << obj1.peek() << endl;
+    obj1.push(100);
+    cout << obj.peek() << " : " << obj1.peek() << endl;
 }

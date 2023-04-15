@@ -5,17 +5,6 @@ class Array
 private:
     int capacity, lastIndex, *ptr;
 
-protected:
-    void setPtr(int *add)
-    {
-        delete[] ptr;
-        ptr = add;
-    }
-    int getCap()
-    {
-        return capacity;
-    }
-
 public:
     Array(int);
     bool isEmpty();
@@ -27,6 +16,10 @@ public:
     inline int get(int);
     inline int count();
     int search(int);
+    int getCap()
+    {
+        return capacity;
+    }
     ~Array();
 };
 Array::~Array()

@@ -25,6 +25,7 @@ public:
     {
         start = NULL;
     }
+    SLL(SLL &);
     node *getStartAdd()
     {
         return start;
@@ -34,8 +35,9 @@ public:
     node *search(int);
     inline void insertAfter(node *, int);
     inline void deleteFirst();
-    void deleteLast();
+    void deleteLastNode();
     void deleteNode(node *);
+    void operator=(SLL &);
     ~SLL();
 };
 SLL::~SLL()
@@ -43,7 +45,25 @@ SLL::~SLL()
     while (start)
         deleteFirst();
 }
-
+void SLL::operator=(SLL &obj)
+{
+    if (start)
+    {
+        while (start)
+        {
+            deleteFirst();
+        }
+    }
+    if (obj.start)
+    {
+        node *t = obj.start;
+        while (t != NULL)
+        {
+            insertAtEnd(t->item);
+            t = t->next;
+        }
+    }
+}
 void SLL::deleteNode(node *ptr)
 {
     if (start == NULL)
@@ -73,27 +93,26 @@ void SLL::deleteNode(node *ptr)
         }
     }
 }
-void SLL::deleteLast()
+void SLL::deleteLastNode()
 {
     if (start == NULL)
     {
-        cout << "Underflow!!";
+        cout << "List is empty" << endl;
+        return;
     }
-    else if (start->next == NULL)
+    if (start->next == NULL)
     {
         delete start;
         start = NULL;
+        return;
     }
-    else
+    node *temp = start;
+    while (temp->next->next != NULL)
     {
-        node *t = start;
-        if (t->next->next != NULL)
-        {
-            t = t->next;
-        }
-        delete t->next;
-        t->next = NULL;
+        temp = temp->next;
     }
+    delete temp->next;
+    temp->next = NULL;
 }
 void SLL::deleteFirst()
 {
@@ -157,4 +176,16 @@ void SLL::insertAtStart(int data)
     n->item = data;
     n->next = start;
     start = n;
+}
+SLL::SLL(SLL &obj)
+{
+    if (obj.start)
+    {
+        node *t = obj.start;
+        while (t != NULL)
+        {
+            insertAtEnd(t->item); //* this code working not properly..
+            t = t->next;
+        }
+    }
 }

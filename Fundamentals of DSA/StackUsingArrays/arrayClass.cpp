@@ -7,6 +7,7 @@ private:
 
 public:
     Array(int);
+    Array(Array &obj);
     bool isEmpty();
     inline void append(int element);
     void insert(int, int);
@@ -16,6 +17,7 @@ public:
     inline int get(int);
     inline int count();
     int search(int);
+    void operator=(Array &);
     int getCap()
     {
         return capacity;
@@ -26,6 +28,16 @@ Array::~Array()
 {
     delete[] ptr;
 }
+void Array::operator=(Array &obj)
+{
+    if (ptr)
+        delete[] ptr;
+    ptr = new int[capacity];
+    for (int i = 0; i <= obj.lastIndex; i++)
+        ptr[i] = obj.ptr[i];
+    lastIndex = obj.lastIndex;
+}
+
 int Array::search(int element)
 {
     int i;
@@ -119,6 +131,14 @@ void Array::append(int element)
 bool Array::isEmpty()
 {
     return lastIndex == -1;
+}
+Array::Array(Array &obj)
+{
+    capacity = obj.capacity;
+    lastIndex = obj.lastIndex;
+    ptr = new int[capacity];
+    for (int i = 0; i <= obj.lastIndex; i++)
+        ptr[i] = obj.ptr[i];
 }
 Array::Array(int size)
 {

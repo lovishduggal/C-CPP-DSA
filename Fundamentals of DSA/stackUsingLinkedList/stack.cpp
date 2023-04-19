@@ -6,25 +6,27 @@ public:
     void push(int);
     int peek();
     void pop();
-    void reverse();
+    node *getStartAddress();
+    void printStack();
 };
-//! This method cause memory leak
-void STACK::reverse()
+void STACK::printStack()
 {
-    if (getStart())
+    node *t = getStart();
+    while (t != NULL)
     {
-        SLL *t = new SLL();
-        while (getStart())
-        {
-            t->insertAtEnd(peek());
-            pop();
-        }
-        setStart(t->getStartAdd());
+        cout << t->item << " ";
+        t = t->next;
     }
 }
+
+node *STACK::getStartAddress()
+{
+    return SLL::getStartAdd();
+}
+
 void STACK::pop()
 {
-    deleteLast();
+    deleteLastNode();
 }
 int STACK::peek()
 {
@@ -45,14 +47,25 @@ void STACK::push(int data)
 {
     insertAtEnd(data);
 }
-
 STACK::STACK() : SLL(){};
+void reverse(STACK &origStack)
+{
+    STACK temp;
+    while (origStack.getStartAddress())
+    {
+        temp.push(origStack.peek());
+        origStack.pop();
+    }
+    origStack = temp;
+}
 int main()
 {
     STACK obj;
     obj.push(10);
     obj.push(20);
     obj.push(30);
-    obj.reverse();
-    cout << obj.peek();
+    obj.push(40);
+    obj.push(50);
+    STACK obj1 = obj;
+    obj1.printStack();
 }

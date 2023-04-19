@@ -73,17 +73,12 @@ void reverseStack(STACK &origStack)
         temp.push(origStack.peek());
         origStack.pop();
     };
-    origStack = temp; //* bug : leakage of memory
+    origStack = temp;
 }
 int main()
 {
     STACK obj(5);
     obj.push(10);
     obj.push(20);
-    obj.push(30);
-    obj.push(30);
-    STACK obj1 = obj;
-    cout << obj.peek() << " : " << obj1.peek() << endl;
-    obj1.push(100);
-    cout << obj.peek() << " : " << obj1.peek() << endl;
+    cout << obj.peek();
 }

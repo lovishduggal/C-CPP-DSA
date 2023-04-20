@@ -18,34 +18,25 @@ void STACK::printStack()
         t = t->next;
     }
 }
-
 node *STACK::getStartAddress()
 {
     return SLL::getStartAdd();
 }
-
 void STACK::pop()
 {
-    deleteLastNode();
+    deleteFirst();
 }
 int STACK::peek()
 {
     if (getStart())
-    {
-        node *t = getStart();
-        while (t->next != NULL)
-            t = t->next;
-        return t->item;
-    }
+        return getStart()->item;
     else
-    {
         cout << "STACK is Empty ";
-    }
     return 0;
 }
 void STACK::push(int data)
 {
-    insertAtEnd(data);
+    insertAtStart(data);
 }
 STACK::STACK() : SLL(){};
 void reverse(STACK &origStack)
@@ -64,8 +55,8 @@ int main()
     obj.push(10);
     obj.push(20);
     obj.push(30);
-    obj.push(40);
-    obj.push(50);
-    STACK obj1 = obj;
-    obj1.printStack();
+    reverse(obj);
+    STACK Obj2 = obj;
+    reverse(Obj2);
+    Obj2.printStack();
 }

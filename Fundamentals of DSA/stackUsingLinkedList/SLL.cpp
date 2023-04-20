@@ -179,12 +179,13 @@ void SLL::insertAtStart(int data)
 }
 SLL::SLL(SLL &obj)
 {
+    start = NULL;
     if (obj.start)
     {
         node *t = obj.start;
         while (t != NULL)
         {
-            insertAtEnd(t->item); //* this code working not properly..
+            insertAtEnd(t->item);
             t = t->next;
         }
     }

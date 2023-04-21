@@ -49,14 +49,27 @@ void reverse(STACK &origStack)
     }
     origStack = temp;
 }
+bool isPalindrome(STACK origStack)
+{
+    STACK temp = origStack;
+    reverse(temp);
+    while (origStack.getStartAddress())
+    {
+        if (!(origStack.peek() == temp.peek()))
+        {
+            return false;
+        }
+        origStack.pop();
+        temp.pop();
+    }
+    return true;
+}
 int main()
 {
     STACK obj;
-    obj.push(10);
-    obj.push(20);
-    obj.push(30);
-    reverse(obj);
-    STACK Obj2 = obj;
-    reverse(Obj2);
-    Obj2.printStack();
+    obj.push('a');
+    obj.push('b');
+    obj.push('a');
+    cout << isPalindrome(obj);
+    obj.printStack();
 }

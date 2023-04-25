@@ -57,24 +57,23 @@ int QUEUE::getRear()
 
 void QUEUE::insertAtRear(int data)
 {
-    //* bug in the below code.
     if (front == -1 && rear == -1)
     {
         ++front;
         ptr[++rear] = data;
     }
-    else if (front == 0 && rear < capacity - 1)
+    else if ((front == 0 && rear == capacity - 1) || (front - 1 == rear))
     {
-        ptr[++rear] = data;
+        cout << "\nQueue is overflow!!";
     }
-    else if (front != 0 && rear == capacity - 1)
+    else if (front > 0 && rear == capacity - 1)
     {
         rear = 0;
         ptr[rear] = data;
     }
     else
     {
-        cout << "\nQueue is overflow!!";
+        ptr[++rear] = data;
     }
 }
 
@@ -92,13 +91,13 @@ int main()
     Q.insertAtRear(10);
     Q.insertAtRear(20);
     Q.insertAtRear(30);
+    Q.deleteFromFront();
     Q.insertAtRear(40);
     Q.insertAtRear(50);
-    Q.deleteFromFront();
     Q.insertAtRear(60);
-    Q.deleteFromFront();
     Q.insertAtRear(70);
-    cout << Q.getFront() << endl;
+    cout
+        << Q.getFront() << endl;
     cout << Q.getRear() << endl;
     return 0;
 }

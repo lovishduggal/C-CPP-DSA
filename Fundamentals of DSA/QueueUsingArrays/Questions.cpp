@@ -8,15 +8,66 @@ private:
 
 public:
     QUEUE(int);
+    QUEUE(QUEUE &);
     void insertAtRear(int);
     int getRear();
     int getFront();
     void deleteFromFront();
+    bool isFull();
+    bool isEmpty();
+    int count();
+    QUEUE &operator=(QUEUE &);
+    ~QUEUE();
 };
+QUEUE::~QUEUE()
+{
+    delete[] ptr;
+}
+QUEUE &QUEUE::operator=(QUEUE &Q)
+{
+    capacity = Q.capacity;
+    front = Q.front;
+    rear = Q.rear;
+    if (ptr != NULL)
+        delete[] ptr;
+    ptr = new int[capacity];
+    int n = Q.count();
+    int i = Q.front;
+    while (n)
+    {
+        ptr[i] = Q.ptr[i];
+        if (i == capacity - 1)
+            i = 0;
+        else
+            i++;
+        n--;
+    }
+}
 
+int QUEUE::count()
+{
+    if (isEmpty())
+        return 0;
+    else if (front <= rear)
+        return rear - front + 1;
+    return capacity - front + rear + 1;
+}
+
+bool QUEUE::isEmpty()
+{
+    return rear == -1;
+}
+bool QUEUE::isFull()
+{
+    return ((front == 0 && rear == capacity - 1) || (front - 1 == rear));
+}
 void QUEUE::deleteFromFront()
 {
-    if (front == rear && front != -1 && rear != -1)
+    if (isEmpty())
+    {
+        cout << "\nQueue is Underflow!!";
+    }
+    else if (front == rear)
     {
         front = -1;
         rear = -1;
@@ -24,10 +75,6 @@ void QUEUE::deleteFromFront()
     else if (front == capacity - 1)
     {
         front = 0;
-    }
-    else if (front == -1 && rear == -1)
-    {
-        cout << "\nQueue is Underflow!!";
     }
     else
     {
@@ -37,7 +84,7 @@ void QUEUE::deleteFromFront()
 
 int QUEUE::getFront()
 {
-    if (front == -1 && rear == -1)
+    if (isEmpty())
     {
         cout << "\nQUEUE is Empty ";
         return 0;
@@ -47,26 +94,25 @@ int QUEUE::getFront()
 
 int QUEUE::getRear()
 {
-    if (front == -1 && rear == -1)
+    if (isEmpty())
     {
         cout << "\nQUEUE is Empty ";
         return 0;
     }
     return ptr[rear];
 }
-
 void QUEUE::insertAtRear(int data)
 {
-    if (front == -1 && rear == -1)
+    if (isFull())
     {
-        ++front;
-        ptr[++rear] = data;
+        cout << "QUEUE is Overflow!!" << endl;
     }
-    else if ((front == 0 && rear == capacity - 1) || (front - 1 == rear))
+    else if (isEmpty())
     {
-        cout << "\nQueue is overflow!!";
+        front = rear = 0;
+        ptr[rear] = data;
     }
-    else if (front > 0 && rear == capacity - 1)
+    else if (rear == capacity - 1)
     {
         rear = 0;
         ptr[rear] = data;
@@ -76,7 +122,24 @@ void QUEUE::insertAtRear(int data)
         ptr[++rear] = data;
     }
 }
-
+QUEUE::QUEUE(QUEUE &Q)
+{
+    capacity = Q.capacity;
+    front = Q.front;
+    rear = Q.rear;
+    ptr = new int[capacity];
+    int n = Q.count();
+    int i = Q.front;
+    while (n)
+    {
+        ptr[i] = Q.ptr[i];
+        if (i == capacity - 1)
+            i = 0;
+        else
+            i++;
+        n--;
+    }
+}
 QUEUE::QUEUE(int cap)
 {
     capacity = cap;
@@ -91,11 +154,12 @@ int main()
     Q.insertAtRear(10);
     Q.insertAtRear(20);
     Q.insertAtRear(30);
-    Q.deleteFromFront();
     Q.insertAtRear(40);
     Q.insertAtRear(50);
-    Q.insertAtRear(60);
-    Q.insertAtRear(70);
+    QUEUE Q1 = Q;
+    Q1.deleteFromFront();
+    cout << Q.count() << endl;
+    cout << Q1.count() << endl;
     cout
         << Q.getFront() << endl;
     cout << Q.getRear() << endl;

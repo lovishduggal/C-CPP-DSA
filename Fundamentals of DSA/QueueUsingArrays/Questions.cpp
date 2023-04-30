@@ -42,6 +42,7 @@ QUEUE &QUEUE::operator=(QUEUE &Q)
             i++;
         n--;
     }
+    return *this;
 }
 
 int QUEUE::count()

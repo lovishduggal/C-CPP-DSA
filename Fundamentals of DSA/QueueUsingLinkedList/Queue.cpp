@@ -14,18 +14,24 @@ private:
 public:
     Queue();
     void insertAtRear(int);
-    int viewRear();
-    int viewFront();
+    bool isEmpty();
+    int getRear();
+    int getFront();
     void deleteFront();
     int count();
     ~Queue();
 };
 Queue::~Queue()
 {
-    while (front)
+    while (!isEmpty())
     {
         deleteFront();
     }
+}
+
+bool Queue::isEmpty()
+{
+    return rear == NULL;
 }
 
 int Queue::count()
@@ -42,24 +48,17 @@ int Queue::count()
 
 void Queue::deleteFront()
 {
-    if (front)
+    if (!isEmpty())
     {
-        if (front->next == NULL)
-        {
-            delete front;
-            front = NULL;
+        node *t = front->next;
+        delete front;
+        front = t;
+        if (front == NULL)
             rear = NULL;
-        }
-        else
-        {
-            node *t = front->next;
-            delete front;
-            front = t;
-        }
     }
 }
 
-int Queue::viewFront()
+int Queue::getFront()
 {
     if (rear == NULL)
     {
@@ -69,7 +68,7 @@ int Queue::viewFront()
     return front->item;
 }
 
-int Queue::viewRear()
+int Queue::getRear()
 {
     if (rear == NULL)
     {
@@ -83,16 +82,11 @@ void Queue::insertAtRear(int data)
 {
     node *n = new node;
     n->item = data;
-    if (front == NULL && rear == NULL)
-    {
+    n->next = NULL;
+    if (isEmpty())
         front = rear = n;
-        front->next = NULL;
-    }
     else
-    {
-        n->next = NULL;
         rear = rear->next = n;
-    }
 }
 Queue::Queue()
 {
@@ -113,5 +107,5 @@ int main()
     // Q.deleteFront();
     // Q.deleteFront();
     // Q.deleteFront();
-    // cout << Q.viewFront();
+    // cout << Q.getFront();
 }

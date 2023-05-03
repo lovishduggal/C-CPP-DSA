@@ -96,16 +96,10 @@ Queue::Queue()
 int main()
 {
     Queue Q;
-    // Q.insertAtRear(10);
-    // Q.insertAtRear(20);
-    // Q.insertAtRear(30);
-    // Q.insertAtRear(40);
-    // Q.insertAtRear(50);
+    Q.insertAtRear(10);
+    Q.insertAtRear(20);
+    Q.insertAtRear(30);
+    Q.insertAtRear(40);
+    Q.insertAtRear(50);
     cout << Q.count();
-    // Q.deleteFront();
-    // Q.deleteFront();
-    // Q.deleteFront();
-    // Q.deleteFront();
-    // Q.deleteFront();
-    // cout << Q.getFront();
 }

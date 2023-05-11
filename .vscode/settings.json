@@ -3,5 +3,10 @@
         "ostream": "cpp",
         "new": "cpp",
         "iostream": "cpp"
-    }
+    },
+    "docwriter.progress.trackClasses": true,
+    "docwriter.progress.trackTypes": false,
+    "docwriter.progress.trackMethods": true,
+    "docwriter.progress.trackFunctions": true,
+    "docwriter.style": "Auto-detect"
 }

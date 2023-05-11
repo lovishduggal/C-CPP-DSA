@@ -14,7 +14,35 @@ private:
 public:
     PriorityQueue();
     void insert(int, int);
+    void del();
+    int highestPriorityElement();
+    int highestPriorityNum();
 };
+
+int PriorityQueue::highestPriorityNum()
+{
+    if (start)
+        return start->priorityNo;
+    return -1;
+}
+
+int PriorityQueue::highestPriorityElement()
+{
+    if (start)
+        return start->item;
+    return -1;
+}
+
+void PriorityQueue::del()
+{
+    if (start != NULL)
+    {
+        node *temp = start;
+        start = start->next;
+        delete temp;
+    }
+}
+
 void PriorityQueue::insert(int priority, int data)
 {
     node *n = new node;
@@ -53,4 +81,12 @@ PriorityQueue::PriorityQueue()
 }
 int main()
 {
+    PriorityQueue pq;
+    pq.insert(10, 7);
+    pq.insert(28, 2);
+    pq.insert(19, 22);
+    pq.del();
+    cout << pq.highestPriorityElement() << endl;
+    cout << pq.highestPriorityNum() << endl;
+    return 0;
 }

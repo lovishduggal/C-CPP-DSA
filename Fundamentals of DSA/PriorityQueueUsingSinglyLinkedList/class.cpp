@@ -17,7 +17,22 @@ public:
     void del();
     int highestPriorityElement();
     int highestPriorityNum();
+    bool isEmpty();
+    ~PriorityQueue();
 };
+
+PriorityQueue::~PriorityQueue()
+{
+    while (start)
+    {
+        del();
+    }
+}
+
+bool PriorityQueue::isEmpty()
+{
+    return start == NULL;
+}
 
 int PriorityQueue::highestPriorityNum()
 {

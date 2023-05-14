@@ -147,13 +147,3 @@ Array::Array(int size)
     lastIndex = -1;
     ptr = new char[size];
 }
-int main()
-{
-    Array a(5);
-    a.append('a');
-    a.append('b');
-    a.append('c');
-    a.append('d');
-    a.append('e');
-    cout << a.search('e');
-}

@@ -8,6 +8,7 @@ public:
     void pop();
     virtual bool isFull();
     virtual bool isEmpty();
+    void InfixToPostfix();
     int getCap();
     ~STACK();
 };

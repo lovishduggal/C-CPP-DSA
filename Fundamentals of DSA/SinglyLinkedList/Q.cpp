@@ -22,12 +22,66 @@ public:
     inline void deleteFirst();
     void deleteLast();
     void deleteNode(node *);
+    int count();
+    void reverse();
+    void print();
+    node *middleNode();
     ~SLL();
 };
 SLL::~SLL()
 {
     while (start)
         deleteFirst();
+}
+
+//! understand the below logic:
+node *SLL::middleNode()
+{
+    if (start == NULL)
+        return NULL;
+    node *slow = start, *fast = start;
+    while (fast && fast->next)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
+
+void SLL::print()
+{
+    node *t = start;
+    while (t)
+    {
+        cout << t->item << " ";
+        t = t->next;
+    }
+    cout << endl;
+}
+
+void SLL::reverse()
+{
+    node *temp = start;
+    start = NULL;
+    while (temp)
+    {
+        node *next = temp->next;
+        temp->next = start;
+        start = temp;
+        temp = next;
+    }
+}
+
+int SLL::count()
+{
+    int c = 0;
+    node *t = start;
+    while (t != NULL)
+    {
+        c++;
+        t = t->next;
+    }
+    return c;
 }
 
 void SLL::deleteNode(node *ptr)
@@ -143,4 +197,17 @@ void SLL::insertAtStart(int data)
     n->item = data;
     n->next = start;
     start = n;
+}
+int main()
+{
+    SLL sll;
+    sll.insertAtEnd(1);
+    sll.insertAtEnd(2);
+    sll.insertAtEnd(3);
+    sll.insertAtEnd(4);
+    // sll.insertAtEnd(5);
+    // sll.print();
+    // sll.reverse();
+    // sll.print();
+    cout << sll.middleNode()->item << endl;
 }

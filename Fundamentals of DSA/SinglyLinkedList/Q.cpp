@@ -39,13 +39,24 @@ node *SLL::middleNode()
 {
     if (start == NULL)
         return NULL;
-    node *slow = start, *fast = start;
-    while (fast && fast->next)
+    int middleNodeNum = (count() / 2) + 1, c = 0;
+    node *t = start;
+    while (t != NULL)
     {
-        slow = slow->next;
-        fast = fast->next->next;
+        if (++c == middleNodeNum)
+            return t;
+        t = t->next;
     }
-    return slow;
+    //* OR
+    // if (start == NULL)
+    //     return NULL;
+    // node *slow = start, *fast = start;
+    // while (fast && fast->next)
+    // {
+    //     slow = slow->next;
+    //     fast = fast->next->next;
+    // }
+    // return slow;
 }
 
 void SLL::print()
@@ -205,7 +216,15 @@ int main()
     sll.insertAtEnd(2);
     sll.insertAtEnd(3);
     sll.insertAtEnd(4);
-    // sll.insertAtEnd(5);
+    sll.insertAtEnd(5);
+    sll.insertAtEnd(6);
+    sll.insertAtEnd(7);
+    sll.insertAtEnd(8);
+    sll.insertAtEnd(9);
+    sll.insertAtEnd(10);
+    sll.insertAtEnd(11);
+    sll.insertAtEnd(12);
+    sll.insertAtEnd(13);
     // sll.print();
     // sll.reverse();
     // sll.print();
